@@ -1,0 +1,389 @@
+/* ==========================================================
+   Servicios Express – estilos
+   Idea visual: el mundo del taller técnico.
+   - Amarillo cable de red + azul tinta.
+   - Los servicios son "etiquetas de servicio" como las que se
+     pegan a un equipo: código, modalidad, desprendible y barras.
+   Colores:
+     --azul      texto, bordes y bloques oscuros
+     --amarillo  presentación y servicios presenciales
+     --tinte     fondo suave de la sección de contacto
+   ========================================================== */
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../fuentes/bricolage-grotesque-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fuentes/public-sans-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --azul: #0c2461;
+  --azul-hondo: #081845;
+  --amarillo: #ffd400;
+  --fondo: #f7f8fc;
+  --tinte: #e7ecf9;
+  --blanco: #ffffff;
+  --texto-suave: #3d4d7a;
+  --error: #b3261e;
+  --ok: #0f6b3c;
+  --radio: 10px;
+  --titulos: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --cuerpo: "Public Sans", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--cuerpo);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--azul);
+  background: var(--fondo);
+}
+
+img, svg { max-width: 100%; height: auto; }
+
+h1, h2, h3 {
+  font-family: var(--titulos);
+  line-height: 1.1;
+  margin: 0 0 .5em;
+  overflow-wrap: anywhere;
+}
+h1 { font-size: clamp(2.3rem, 7.5vw, 4.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+h2 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); font-weight: 750; letter-spacing: -0.02em; }
+h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
+p { margin: 0 0 1em; overflow-wrap: anywhere; }
+
+a { color: var(--azul); }
+
+code {
+  background: var(--tinte);
+  padding: .1em .35em;
+  border-radius: 3px;
+  font-size: .92em;
+}
+
+:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; }
+
+[v-cloak] { display: none; }
+
+.contenedor { width: min(100% - 2rem, 70rem); margin-inline: auto; }
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.saltar {
+  position: absolute;
+  left: -999px; top: 0;
+  background: var(--azul);
+  color: var(--amarillo);
+  padding: .6rem 1rem;
+  z-index: 10;
+}
+.saltar:focus { left: 0; }
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+  background: var(--blanco);
+  border-bottom: 2px solid var(--azul);
+}
+.encabezado__interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .25rem 1.5rem;
+  padding-block: .4rem;
+}
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 44px;
+  font-family: var(--titulos);
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--azul);
+  text-decoration: none;
+}
+.marca__icono { width: 2rem; height: 2rem; color: var(--azul); flex: none; }
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 .25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu a {
+  display: inline-block;
+  padding: .7rem .8rem;
+  font-weight: 600;
+  color: var(--azul);
+  text-decoration: none;
+  border-radius: 6px;
+}
+.menu a:hover { background: var(--amarillo); }
+
+/* ---------- Presentación ---------- */
+.presentacion {
+  background: var(--amarillo);
+  padding-block: clamp(2rem, 6vw, 4.5rem);
+  overflow: hidden;
+}
+.presentacion__interior { display: grid; gap: 2rem; align-items: center; }
+.presentacion__texto p { max-width: 34rem; font-size: 1.15rem; }
+.presentacion__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem; }
+.ilustracion { width: 100%; max-width: 30rem; justify-self: center; }
+
+.enlace-simple {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-weight: 700;
+  color: var(--azul);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Botones ---------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .6rem 1.5rem;
+  font: inherit;
+  font-weight: 700;
+  border: 2px solid var(--azul);
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.boton--oscuro { background: var(--azul); color: var(--amarillo); }
+.boton--oscuro:hover { background: var(--azul-hondo); }
+.boton--contorno { background: transparent; color: var(--azul); }
+.boton--contorno:hover { background: var(--azul); color: var(--amarillo); }
+
+/* ---------- Pasos (secuencia real) ---------- */
+.pasos-franja { background: var(--azul); color: var(--blanco); padding-block: 1.5rem; }
+.pasos-franja :focus-visible { outline-color: var(--amarillo); }
+.pasos {
+  display: grid;
+  gap: 1rem 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: paso;
+}
+.pasos li {
+  display: flex;
+  align-items: baseline;
+  gap: .9rem;
+  counter-increment: paso;
+}
+.pasos li::before {
+  content: counter(paso);
+  flex: none;
+  font-family: var(--titulos);
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--amarillo);
+}
+.pasos strong { color: var(--amarillo); }
+
+/* ---------- Secciones ---------- */
+.seccion { padding-block: clamp(2.5rem, 7vw, 4.5rem); }
+.seccion__intro { color: var(--texto-suave); max-width: 38rem; }
+.seccion--tinte {
+  background: var(--tinte);
+  border-block: 2px solid var(--azul);
+}
+
+/* ---------- Filtros ---------- */
+.servicios__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: .5rem 2rem;
+  margin-bottom: .5rem;
+}
+.filtros {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+  border: 2px solid var(--azul);
+  border-radius: 999px;
+  background: var(--blanco);
+  overflow: hidden;
+}
+.filtro {
+  min-height: 44px;
+  padding: .4rem 1.2rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--azul);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.filtro:hover { background: var(--tinte); }
+.filtro--activo, .filtro--activo:hover { background: var(--azul); color: var(--amarillo); }
+.filtro:focus-visible { outline-offset: -5px; }
+
+.estado { color: var(--texto-suave); font-size: .95rem; }
+
+/* ---------- Etiquetas de servicio (componente TarjetaServicio) ---------- */
+.etiquetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 1fr));
+  gap: 1.5rem;
+}
+.etiqueta {
+  display: flex;
+  flex-direction: column;
+  background: var(--blanco);
+  border: 2px solid var(--azul);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+.etiqueta--elegida {
+  box-shadow: 7px 7px 0 var(--azul);
+  transform: translate(-3px, -3px);
+}
+
+.etiqueta__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .55rem 1rem;
+  font-weight: 700;
+  font-size: .9rem;
+  border-bottom: 2px solid var(--azul);
+}
+.etiqueta--presencial .etiqueta__cabecera { background: var(--amarillo); color: var(--azul); }
+.etiqueta--remoto .etiqueta__cabecera { background: var(--azul); color: var(--blanco); }
+.etiqueta__codigo { font-variant-numeric: tabular-nums; }
+
+.etiqueta__cuerpo { padding: 1.1rem 1.1rem .5rem; flex: 1; }
+.etiqueta__cuerpo p { margin-bottom: .8em; }
+.etiqueta__cuerpo ul { margin: 0; padding-left: 1.1rem; color: var(--texto-suave); }
+.etiqueta__cuerpo li { margin-bottom: .2rem; }
+
+.etiqueta__pie {
+  padding: 1rem 1.1rem 1.1rem;
+  border-top: 2px dashed var(--azul);
+}
+.barras {
+  display: block;
+  height: 26px;
+  margin-bottom: .9rem;
+  background: repeating-linear-gradient(90deg,
+    var(--azul) 0 2px, transparent 2px 5px,
+    var(--azul) 5px 6px, transparent 6px 9px,
+    var(--azul) 9px 12px, transparent 12px 14px,
+    var(--azul) 14px 15px, transparent 15px 19px);
+}
+.etiqueta__pie .boton { width: 100%; }
+.etiqueta--elegida .boton { background: var(--azul); color: var(--amarillo); }
+
+/* ---------- Formulario ---------- */
+.contacto { display: grid; gap: 2rem; }
+.contacto__texto p { color: var(--texto-suave); max-width: 24rem; font-size: 1.1rem; }
+
+.formulario {
+  background: var(--blanco);
+  border: 2px solid var(--azul);
+  border-radius: var(--radio);
+  padding: clamp(1rem, 4vw, 1.75rem);
+}
+.campo { margin-bottom: 1.1rem; }
+.campo label { display: block; font-weight: 700; margin-bottom: .3rem; }
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: .6rem .75rem;
+  font: inherit;
+  color: var(--azul);
+  background: var(--fondo);
+  border: 2px solid var(--azul);
+  border-radius: 8px;
+}
+.campo textarea { resize: vertical; }
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus { background: var(--blanco); outline: 3px solid var(--amarillo); outline-offset: 0; }
+
+.campo--invalido input,
+.campo--invalido select,
+.campo--invalido textarea { border-color: var(--error); background: #fff4f3; }
+
+.campo__error { margin: .3rem 0 0; font-size: .9rem; font-weight: 600; color: var(--error); }
+.campo__error:empty { display: none; }
+
+.resultado { margin: 1rem 0 0; font-weight: 700; }
+.resultado:empty { display: none; }
+.resultado--ok { color: var(--ok); }
+.resultado--error { color: var(--error); }
+
+.aviso {
+  padding: .75rem 1rem;
+  background: var(--amarillo);
+  border: 2px solid var(--azul);
+  border-radius: 8px;
+}
+
+/* ---------- Información externa (filas) ---------- */
+.registros { border-bottom: 2px solid var(--azul); }
+.registro {
+  display: grid;
+  gap: .1rem 2rem;
+  padding: .9rem 0;
+  border-top: 2px solid var(--azul);
+}
+.registro h3 { margin: 0; font-size: 1.15rem; }
+.registro p { margin: 0; color: var(--texto-suave); }
+
+/* ---------- Pie ---------- */
+.pie { background: var(--azul); color: #c9d3f0; padding-block: 2rem; }
+.pie__interior { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+.pie p, .pie address { margin: 0; font-style: normal; overflow-wrap: anywhere; }
+.pie a { color: var(--amarillo); }
+.pie :focus-visible { outline-color: var(--amarillo); }
+.pie__marca { font-family: var(--titulos); font-weight: 800; font-size: 1.3rem; color: var(--blanco); }
+.pie__nota { font-size: .9rem; }
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 760px) {
+  .presentacion__interior { grid-template-columns: 1.25fr 1fr; gap: 3rem; }
+  .pasos { grid-template-columns: repeat(3, 1fr); }
+  .contacto { grid-template-columns: 1fr 1.25fr; gap: 3.5rem; align-items: start; }
+  .registro { grid-template-columns: 1.2fr 1.2fr 1fr; align-items: baseline; }
+  .pie__interior { grid-template-columns: 1fr auto auto; align-items: start; gap: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Servicios Express: mantenimiento de computadoras, redes domésticas y soporte remoto.">
+  <title>Servicios Express | Soporte técnico para tu casa</title>
+  <link rel="preload" href="fuentes/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== ENCABEZADO Y NAVEGACIÓN ===== -->
+  <header class="encabezado">
+    <div class="contenedor encabezado__interior">
+      <a class="marca" href="#contenido" aria-label="Servicios Express, inicio">
+        <svg class="marca__icono" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="16" fill="currentColor"/>
+          <path d="M17.5 5 9 17.5h6L13.5 27 23 13.5h-6.2z" fill="#ffd400"/>
+        </svg>
+        <span>Servicios Express</span>
+      </a>
+      <nav aria-label="Navegación principal">
+        <ul class="menu">
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#externo">Información externa</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ===== PRESENTACIÓN ===== -->
+    <section class="presentacion" aria-labelledby="titulo-presentacion">
+      <div class="contenedor presentacion__interior">
+        <div class="presentacion__texto">
+          <h1 id="titulo-presentacion">Tu computadora y tu internet, funcionando otra vez.</h1>
+          <p>
+            Reparamos equipos, instalamos la red de tu casa y te ayudamos a
+            distancia cuando algo falla. Elige un servicio y cuéntanos qué necesitas.
+          </p>
+          <div class="presentacion__acciones">
+            <a class="boton boton--oscuro" href="#contacto">Pedir ayuda</a>
+            <a class="enlace-simple" href="#servicios">Ver los servicios</a>
+          </div>
+        </div>
+
+        <!-- Ilustración: equipo, router y teléfono conectados -->
+        <svg class="ilustracion" viewBox="0 0 440 340" role="img"
+             aria-label="Ilustración de una laptop y un teléfono conectados a un router">
+          <g fill="none" stroke="#0c2461" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- cables -->
+            <path d="M92 214 C92 160 150 190 190 160" stroke-width="7"/>
+            <path d="M268 160 C320 150 330 200 350 214"/>
+            <!-- antenas -->
+            <path d="M184 120 L166 62"/>
+            <path d="M256 120 L274 62"/>
+            <!-- ondas -->
+            <path d="M120 36 q46 -26 92 0" stroke-width="5"/>
+            <path d="M138 52 q28 -15 56 0" stroke-width="5"/>
+            <!-- laptop -->
+            <rect x="34" y="214" width="150" height="92" rx="8" fill="#fff"/>
+            <path d="M16 306 H202" stroke-width="8"/>
+            <path d="M60 244 H128 M60 266 H100" stroke-width="5"/>
+            <!-- teléfono -->
+            <rect x="330" y="214" width="76" height="116" rx="14" fill="#fff"/>
+            <path d="M356 312 H380" stroke-width="5"/>
+          </g>
+          <!-- router -->
+          <rect x="150" y="120" width="140" height="56" rx="10" fill="#0c2461"/>
+          <circle cx="182" cy="148" r="6" fill="#fff"/>
+          <circle cx="206" cy="148" r="6" fill="#fff"/>
+          <circle cx="230" cy="148" r="6" fill="#fff"/>
+          <rect x="254" y="142" width="22" height="12" rx="3" fill="#ffd400"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== PASOS ===== -->
+    <section class="pasos-franja" aria-labelledby="titulo-pasos">
+      <div class="contenedor">
+        <h2 id="titulo-pasos" class="visualmente-oculto">Cómo trabajamos</h2>
+        <ol class="pasos">
+          <li><span><strong>Nos escribes</strong> con el formulario.</span></li>
+          <li><span><strong>Te respondemos</strong> con una propuesta.</span></li>
+          <li><span><strong>Lo resolvemos</strong> en tu casa o por conexión remota.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== SERVICIOS (componente Vue + filtro) ===== -->
+    <section id="servicios" class="seccion" aria-labelledby="titulo-servicios">
+      <div class="contenedor">
+
+        <!-- Esta zona la controla Vue (ver js/app.js) -->
+        <div id="app-servicios" v-cloak>
+          <div class="servicios__cabecera">
+            <div>
+              <h2 id="titulo-servicios">Servicios disponibles</h2>
+              <p class="seccion__intro">Filtra por la forma de atención que prefieras.</p>
+            </div>
+            <div class="filtros" role="group" aria-label="Filtrar servicios por modalidad">
+              <button
+                v-for="opcion in opciones"
+                :key="opcion.valor"
+                type="button"
+                class="filtro"
+                :class="{ 'filtro--activo': filtro === opcion.valor }"
+                :aria-pressed="filtro === opcion.valor"
+                @click="filtro = opcion.valor">
+                {{ opcion.texto }}
+              </button>
+            </div>
+          </div>
+
+          <p class="estado" role="status" aria-live="polite">{{ resumen }}</p>
+
+          <div class="etiquetas">
+            <tarjeta-servicio
+              v-for="s in visibles"
+              :key="s.id"
+              :codigo="s.codigo"
+              :nombre="s.nombre"
+              :descripcion="s.descripcion"
+              :modalidad="s.modalidad"
+              :incluye="s.incluye"
+              :seleccionado="seleccionado === s.id"
+              @elegir="elegir(s.id)">
+            </tarjeta-servicio>
+          </div>
+        </div>
+
+        <noscript><p class="aviso">Activa JavaScript para ver y filtrar los servicios.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ===== FORMULARIO ===== -->
+    <section id="contacto" class="seccion seccion--tinte" aria-labelledby="titulo-contacto">
+      <div class="contenedor contacto">
+        <div class="contacto__texto">
+          <h2 id="titulo-contacto">Cuéntanos qué necesitas</h2>
+          <p>Todos los campos son obligatorios. Respondemos en el mismo día hábil.</p>
+        </div>
+
+        <form id="formulario" class="formulario" novalidate>
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" autocomplete="name" required aria-describedby="error-nombre">
+            <p class="campo__error" id="error-nombre"></p>
+          </div>
+
+          <div class="campo">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" autocomplete="email" required aria-describedby="error-correo">
+            <p class="campo__error" id="error-correo"></p>
+          </div>
+
+          <div class="campo">
+            <label for="servicio">Servicio de interés</label>
+            <select id="servicio" name="servicio" required aria-describedby="error-servicio">
+              <option value="">Selecciona una opción</option>
+              <option value="mantenimiento">Mantenimiento de computadoras</option>
+              <option value="redes">Instalación de redes domésticas</option>
+              <option value="soporte">Soporte tecnológico remoto</option>
+            </select>
+            <p class="campo__error" id="error-servicio"></p>
+          </div>
+
+          <div class="campo">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required aria-describedby="error-mensaje"></textarea>
+            <p class="campo__error" id="error-mensaje"></p>
+          </div>
+
+          <button type="submit" class="boton boton--oscuro">Enviar mensaje</button>
+          <p id="resultado-formulario" class="resultado" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== INFORMACIÓN EXTERNA (fetch) ===== -->
+    <section id="externo" class="seccion" aria-labelledby="titulo-externo">
+      <div class="contenedor">
+        <h2 id="titulo-externo">Información externa de demostración</h2>
+        <p class="seccion__intro">
+          Datos de ejemplo cargados con <code>fetch</code> desde un servicio público
+          (JSONPlaceholder). No son clientes reales.
+        </p>
+        <p id="estado-externo" class="estado" role="status" aria-live="polite">Cargando datos…</p>
+        <div id="lista-externa" class="registros"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie">
+    <div class="contenedor pie__interior">
+      <p class="pie__marca">Servicios Express</p>
+      <address>
+        <a href="mailto:contacto@serviciosexpress.example">contacto@serviciosexpress.example</a><br>
+        WhatsApp: +593 00 000 0000 (dato de ejemplo)
+      </address>
+      <p class="pie__nota">Prototipo de demostración · Caso práctico 1</p>
+    </div>
+  </footer>
+
+  <script src="js/vendor/vue.global.prod.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/formulario.js"></script>
+  <script src="js/externo.js"></script>
+</body>
+</html>
