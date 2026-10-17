@@ -544,11 +544,24 @@ nav { order: 3; flex-basis: 100%; }
     margin: 0 1rem 0 1rem;
   }
   .cable__hilo {
+    position: relative;
     flex: 1;
     min-width: 0;
     height: 3px;
     background: var(--amarillo);
     border-radius: 2px;
+    overflow: hidden;
+  }
+  /* Pulso de datos: un destello claro recorre el cable de la marca al conector */
+  .cable__hilo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -40px;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--blanco), transparent);
+    animation: pulso 4s ease-in-out infinite;
   }
   .cable__conector { flex: none; width: 28px; height: 20px; }
   .cable__leds { flex: none; display: flex; gap: 5px; margin-left: 6px; }
@@ -602,6 +615,12 @@ nav { order: 3; flex-basis: 100%; }
   .encabezado__cable { margin-inline: .5rem; }
 }
 
+@keyframes pulso {
+  0%   { left: -40px; }
+  45%  { left: 100%; }   /* llega al conector */
+  100% { left: 100%; }   /* pausa hasta el siguiente pulso */
+}
+
 @keyframes parpadeo {
   0%, 100% { opacity: 1; }
   50% { opacity: .25; }
@@ -610,5 +629,6 @@ nav { order: 3; flex-basis: 100%; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .cable__leds i { animation: none; }
+  .cable__hilo::after { display: none; }
   .boton { transition: none; }
 }
