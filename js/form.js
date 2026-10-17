@@ -1,5 +1,5 @@
 /* ==========================================================
-   formulario.js – Interacción B: validación del formulario
+   form.js – Interacción B: validación del formulario
    Antes de aceptar el envío comprueba:
    1) que los campos obligatorios tengan información,
    2) que el correo tenga un formato básico correcto,

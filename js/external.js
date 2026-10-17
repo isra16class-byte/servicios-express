@@ -1,5 +1,5 @@
 /* ==========================================================
-   externo.js – Consulta de datos externos con fetch
+   external.js – Consulta de datos externos con fetch
    Fuente: JSONPlaceholder (https://jsonplaceholder.typicode.com/users)
    Si el servicio no responde, se usan datos de respaldo propios.
    Nota: los datos de respaldo están en este mismo archivo (y no en

@@ -1,5 +1,5 @@
 /* ==========================================================
-   navegacion.js – Resalta en el menú la sección que se está viendo
+   navigation.js – Resalta en el menú la sección que se está viendo
    Al hacer scroll, busca la última sección cuya parte de arriba ya
    pasó una "línea de lectura" (35 % de la altura de la ventana) y
    le pone aria-current="location" a su enlace del menú.
