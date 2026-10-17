@@ -24,16 +24,16 @@
 }
 
 :root {
-  --azul: #0c2461;
-  --azul-hondo: #081845;
-  --amarillo: #ffd400;
-  --fondo: #f7f8fc;
-  --tinte: #e7ecf9;
+  --azul: #0b3d2e;
+  --azul-hondo: #072a20;
+  --amarillo: #ff8a1f;
+  --fondo: #f6faf7;
+  --tinte: #e4f1ea;
   --blanco: #ffffff;
-  --texto-suave: #3d4d7a;
+  --texto-suave: #3b5a4d;
   --error: #b3261e;
   --ok: #0f6b3c;
-  --radio: 10px;
+  --radio: 4px;
   --titulos: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --cuerpo: "Public Sans", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
 }
@@ -367,7 +367,7 @@ code {
 .registro p { margin: 0; color: var(--texto-suave); }
 
 /* ---------- Pie ---------- */
-.pie { background: var(--azul); color: #c9d3f0; padding-block: 2rem; }
+.pie { background: var(--azul); color: #cfe6da; padding-block: 2rem; }
 .pie__interior { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
 .pie p, .pie address { margin: 0; font-style: normal; overflow-wrap: anywhere; }
 .pie a { color: var(--amarillo); }

@@ -50,7 +50,7 @@ const TarjetaServicio = {
 const SERVICIOS = [
   {
     id: "mantenimiento",
-    codigo: "SX-EQ",
+    codigo: "EXP-PC",
     nombre: "Mantenimiento de computadoras",
     descripcion: "Dejamos tu equipo limpio, rápido y listo para trabajar.",
     modalidad: "presencial",
@@ -58,7 +58,7 @@ const SERVICIOS = [
   },
   {
     id: "redes",
-    codigo: "SX-RD",
+    codigo: "EXP-NET",
     nombre: "Instalación de redes domésticas",
     descripcion: "Llevamos buen Wi-Fi a todos los cuartos de tu casa.",
     modalidad: "presencial",
@@ -66,7 +66,7 @@ const SERVICIOS = [
   },
   {
     id: "soporte",
-    codigo: "SX-RM",
+    codigo: "EXP-REM",
     nombre: "Soporte tecnológico remoto",
     descripcion: "Resolvemos tu problema por videollamada y control remoto.",
     modalidad: "remoto",
