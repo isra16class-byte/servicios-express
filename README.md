@@ -67,3 +67,15 @@ Carga sin errores en consola; filtro correcto (Todos 3, Presenciales 2, Remotos 
 
 ## Reflexión final
 **Estructura:** el HTML semántico (header, nav, main, section, article, footer, formulario). **Presentación:** el CSS (colores, rejilla, adaptación a móvil). **Comportamiento:** JavaScript, es decir, la validación y la carga con `fetch`. **Gestión de estado:** Vue guarda el filtro activo y el servicio elegido, y la pantalla se actualiza sola cuando cambian.
+
+## Declaración de uso de IA
+Usé una herramienta de inteligencia artificial como apoyo en este proyecto. Primero escribí
+yo el código a mano (la estructura HTML, los estilos base, el filtro, la validación del
+formulario y la consulta con fetch). Después lo usé para reestructurarlo y mejorarlo poco
+a poco, y para las decoraciones visuales, porque tuve problemas con el posicionamiento en
+CSS al hacerlas solo: las etiquetas de servicio con muescas, el cable que une los pasos,
+el encabezado fijo con su cable animado, el logo, el favicon y los íconos.
+También me ayudó con funciones extra que no son las dos interacciones del caso: la orden
+de servicio que se llena en vivo y el resaltado de la sección activa en el menú.
+Además la usé para probar la página en distintos tamaños de pantalla (320, 390 y 1280 px) y
+como borrador del README. Revisé y probé cada cambio.
