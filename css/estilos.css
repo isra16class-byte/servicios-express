@@ -98,10 +98,8 @@ code {
 .saltar:focus { left: 0; }
 
 /* ---------- Encabezado ---------- */
-.encabezado {
-  background: var(--blanco);
-  border-bottom: 2px solid var(--azul);
-}
+/* Mismo amarillo que la presentación y sin línea: se lee como un solo bloque */
+.encabezado { background: var(--amarillo); }
 .encabezado__interior {
   display: flex;
   flex-wrap: wrap;
@@ -127,20 +125,21 @@ code {
 .menu {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 .25rem;
+  gap: 0;
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 -.4rem; /* alinea el texto del primer link con el logo */
   padding: 0;
 }
 .menu a {
   display: inline-block;
-  padding: .7rem .8rem;
+  padding: .7rem .4rem;
+  font-size: .95rem;
   font-weight: 600;
   color: var(--azul);
   text-decoration: none;
   border-radius: 6px;
 }
-.menu a:hover { background: var(--amarillo); }
+.menu a:hover { background: var(--azul); color: var(--amarillo); }
 
 /* ---------- Presentación ---------- */
 .presentacion {
@@ -482,6 +481,8 @@ code {
 
 /* ---------- Escritorio ---------- */
 @media (min-width: 760px) {
+  .menu { gap: 0 .25rem; margin: 0; }
+  .menu a { padding: .7rem .8rem; font-size: 1rem; }
   .presentacion__interior { grid-template-columns: 1.25fr 1fr; gap: 3rem; }
   .pasos { grid-template-columns: repeat(3, 1fr); }
   .pasos li { display: block; }
