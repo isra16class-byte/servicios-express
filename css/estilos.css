@@ -59,10 +59,10 @@ h1, h2, h3 {
   margin: 0 0 .5em;
   overflow-wrap: anywhere;
 }
-h1 { font-size: clamp(2.3rem, 7.5vw, 4.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
-h2 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); font-weight: 750; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.3rem, 7.5vw, 4.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; text-wrap: balance; }
+h2 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); font-weight: 750; letter-spacing: -0.02em; text-wrap: balance; }
 h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
-p { margin: 0 0 1em; overflow-wrap: anywhere; }
+p { margin: 0 0 1em; overflow-wrap: anywhere; text-wrap: pretty; }
 
 a { color: var(--azul); }
 
@@ -176,42 +176,74 @@ code {
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
+  --d: 3px;
+  box-shadow: var(--d) var(--d) 0 var(--azul);
+  transition: transform .08s ease-out, box-shadow .08s ease-out;
 }
-.boton--oscuro { background: var(--azul); color: var(--amarillo); }
+.boton:hover { --d: 4px; transform: translate(-1px, -1px); }
+.boton:active { transform: translate(3px, 3px); box-shadow: none; }
+.boton--oscuro {
+  background: var(--azul);
+  color: var(--amarillo);
+  /* relleno amarillo con contorno azul: se distingue del botón sobre fondo amarillo */
+  box-shadow: var(--d) var(--d) 0 var(--amarillo), var(--d) var(--d) 0 2px var(--azul);
+}
 .boton--oscuro:hover { background: var(--azul-hondo); }
 .boton--contorno { background: transparent; color: var(--azul); }
 .boton--contorno:hover { background: var(--azul); color: var(--amarillo); }
 
-/* ---------- Pasos (secuencia real) ---------- */
-.pasos-franja { background: var(--azul); color: var(--blanco); padding-block: 1.5rem; }
+/* ---------- Pasos: un cable amarillo une los tres puertos ---------- */
+.pasos-franja { background: var(--azul); color: var(--blanco); padding-block: 1.75rem; }
 .pasos-franja :focus-visible { outline-color: var(--amarillo); }
 .pasos {
   display: grid;
-  gap: 1rem 2rem;
+  gap: 1.25rem 2rem;
   margin: 0;
   padding: 0;
   list-style: none;
   counter-reset: paso;
 }
 .pasos li {
+  position: relative;
   display: flex;
-  align-items: baseline;
-  gap: .9rem;
+  align-items: flex-start;
+  gap: 1rem;
+  min-height: 3rem;
   counter-increment: paso;
 }
 .pasos li::before {
   content: counter(paso);
   flex: none;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
   font-family: var(--titulos);
   font-weight: 800;
-  font-size: 2.4rem;
+  font-size: 1.6rem;
   line-height: 1;
-  color: var(--amarillo);
+  font-variant-numeric: tabular-nums;
+  color: var(--azul);
+  background: var(--amarillo);
+  border-radius: 8px;
 }
+.pasos li > span { padding-top: .55rem; }
 .pasos strong { color: var(--amarillo); }
 
+/* Cable en vertical (móvil): baja del puerto actual al siguiente */
+.pasos li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(1.5rem - 2px);
+  top: calc(3rem + .3rem);
+  bottom: calc(-1.25rem + .3rem);
+  width: 4px;
+  background: var(--amarillo);
+  border-radius: 2px;
+}
+
 /* ---------- Secciones ---------- */
-.seccion { padding-block: clamp(2.5rem, 7vw, 4.5rem); }
+.seccion { padding-block: clamp(3rem, 8vw, 5.5rem); }
 .seccion__intro { color: var(--texto-suave); max-width: 38rem; }
 .seccion--tinte {
   background: var(--tinte);
@@ -264,7 +296,7 @@ code {
   background: var(--blanco);
   border: 2px solid var(--azul);
   border-radius: var(--radio);
-  overflow: hidden;
+  --hueco: var(--fondo); /* color de fondo que se ve a través de las muescas */
 }
 .etiqueta--elegida {
   box-shadow: 7px 7px 0 var(--azul);
@@ -280,6 +312,7 @@ code {
   font-weight: 700;
   font-size: .9rem;
   border-bottom: 2px solid var(--azul);
+  border-radius: calc(var(--radio) - 2px) calc(var(--radio) - 2px) 0 0;
 }
 .etiqueta--presencial .etiqueta__cabecera { background: var(--amarillo); color: var(--azul); }
 .etiqueta--remoto .etiqueta__cabecera { background: var(--azul); color: var(--blanco); }
@@ -294,18 +327,90 @@ code {
   padding: 1rem 1.1rem 1.1rem;
   border-top: 2px dashed var(--azul);
 }
-.barras {
-  display: block;
-  height: 26px;
-  margin-bottom: .9rem;
-  background: repeating-linear-gradient(90deg,
-    var(--azul) 0 2px, transparent 2px 5px,
-    var(--azul) 5px 6px, transparent 6px 9px,
-    var(--azul) 9px 12px, transparent 12px 14px,
-    var(--azul) 14px 15px, transparent 15px 19px);
+.datos { margin: 0 0 1rem; display: grid; gap: .3rem; }
+.datos > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 1rem;
+  font-size: .95rem;
 }
+.datos dt { color: var(--texto-suave); font-weight: 600; }
+.datos dd { display: inline-flex; align-items: center; gap: .4rem; margin: 0; font-weight: 700; }
+.datos__icono {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Muescas del corte punteado (como un ticket desprendible) */
+.etiqueta__pie, .orden__estado { position: relative; }
+.etiqueta__pie::before, .etiqueta__pie::after,
+.orden__estado::before, .orden__estado::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  width: 20px;
+  height: 20px;
+  background: var(--hueco);
+  border: 2px solid var(--azul);
+  border-radius: 50%;
+}
+.etiqueta__pie::before, .orden__estado::before { left: -12px; clip-path: inset(0 0 0 50%); }
+.etiqueta__pie::after, .orden__estado::after { right: -12px; clip-path: inset(0 50% 0 0); }
 .etiqueta__pie .boton { width: 100%; }
 .etiqueta--elegida .boton { background: var(--azul); color: var(--amarillo); }
+
+/* ---------- Orden de servicio (resumen en vivo del formulario) ---------- */
+.orden {
+  display: none;
+  --hueco: var(--tinte);
+  max-width: 22rem;
+  margin-top: 2rem;
+  background: var(--blanco);
+  border: 2px solid var(--azul);
+  border-radius: var(--radio);
+  transform: rotate(-1deg);
+}
+.orden__cabecera {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .55rem 1rem;
+  font-weight: 700;
+  font-size: .9rem;
+  background: var(--tinte);
+  border-bottom: 2px solid var(--azul);
+  border-radius: calc(var(--radio) - 2px) calc(var(--radio) - 2px) 0 0;
+}
+.orden--presencial .orden__cabecera { background: var(--amarillo); }
+.orden--remoto .orden__cabecera { background: var(--azul); color: var(--blanco); }
+.orden__datos { margin: 0; padding: .6rem 1rem .8rem; }
+.orden__datos > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1rem;
+  padding-block: .3rem;
+  border-bottom: 1px dotted var(--texto-suave);
+}
+.orden__datos > div:last-child { border-bottom: 0; }
+.orden__datos dt { color: var(--texto-suave); font-weight: 600; }
+.orden__datos dd { margin: 0; font-weight: 700; text-align: right; overflow-wrap: anywhere; }
+.orden__estado {
+  margin: 0;
+  padding: .7rem 1rem .85rem;
+  border-top: 2px dashed var(--azul);
+  font-weight: 700;
+  color: var(--texto-suave);
+}
+.orden--lista .orden__estado { color: var(--ok); }
 
 /* ---------- Formulario ---------- */
 .contacto { display: grid; gap: 2rem; }
@@ -379,6 +484,18 @@ code {
 @media (min-width: 760px) {
   .presentacion__interior { grid-template-columns: 1.25fr 1fr; gap: 3rem; }
   .pasos { grid-template-columns: repeat(3, 1fr); }
+  .pasos li { display: block; }
+  .pasos li > span { display: block; padding-top: .8rem; }
+  /* Cable en horizontal: va del número actual al siguiente */
+  .pasos li:not(:last-child)::after {
+    left: calc(3rem + .3rem);
+    right: calc(-2rem + .3rem);
+    top: calc(1.5rem - 2px);
+    bottom: auto;
+    width: auto;
+    height: 4px;
+  }
+  .orden { display: block; }
   .contacto { grid-template-columns: 1fr 1.25fr; gap: 3.5rem; align-items: start; }
   .registro { grid-template-columns: 1.2fr 1.2fr 1fr; align-items: baseline; }
   .pie__interior { grid-template-columns: 1fr auto auto; align-items: start; gap: 2rem; }
@@ -386,4 +503,5 @@ code {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .boton { transition: none; }
 }

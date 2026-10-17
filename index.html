@@ -128,6 +128,8 @@
               :descripcion="s.descripcion"
               :modalidad="s.modalidad"
               :incluye="s.incluye"
+              :lugar="s.lugar"
+              :tiempo="s.tiempo"
               :seleccionado="seleccionado === s.id"
               @elegir="elegir(s.id)">
             </tarjeta-servicio>
@@ -144,6 +146,21 @@
         <div class="contacto__texto">
           <h2 id="titulo-contacto">Cuéntanos qué necesitas</h2>
           <p>Todos los campos son obligatorios. Respondemos en el mismo día hábil.</p>
+
+          <!-- Resumen visual que se llena mientras se escribe (ver js/formulario.js).
+               Es solo decorativo: la información real está en el formulario. -->
+          <aside class="orden" id="orden" aria-hidden="true">
+            <div class="orden__cabecera">
+              <span>Orden de servicio</span>
+              <span id="orden-codigo">SX-—</span>
+            </div>
+            <dl class="orden__datos">
+              <div><dt>Cliente</dt><dd id="orden-cliente">—</dd></div>
+              <div><dt>Servicio</dt><dd id="orden-servicio">Sin elegir</dd></div>
+              <div><dt>Modalidad</dt><dd id="orden-modalidad">—</dd></div>
+            </dl>
+            <p class="orden__estado" id="orden-estado">Faltan 4 campos</p>
+          </aside>
         </div>
 
         <form id="formulario" class="formulario" novalidate>
