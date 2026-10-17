@@ -284,8 +284,8 @@ nav { order: 3; flex-basis: 100%; }
   margin-bottom: .5rem;
 }
 .filtros {
-  display: inline-flex;
-  flex-wrap: wrap;
+  display: flex;          /* una sola fila: los botones se reparten el ancho */
+  max-width: 100%;
   margin-bottom: 1em;
   border: 2px solid var(--azul);
   border-radius: 999px;
@@ -293,8 +293,9 @@ nav { order: 3; flex-basis: 100%; }
   overflow: hidden;
 }
 .filtro {
+  flex: 1 1 auto;
   min-height: 44px;
-  padding: .4rem 1.2rem;
+  padding: .4rem .6rem;
   font: inherit;
   font-weight: 600;
   color: var(--azul);
@@ -536,6 +537,7 @@ nav { order: 3; flex-basis: 100%; }
 }
 
 @media (min-width: 480px) {
+  .filtro { padding-inline: 1.2rem; }
   .marca { gap: .6rem; }
   .marca__icono { width: 2.5rem; height: 2.5rem; }
   .marca__nombre { font-size: 1.15rem; }
