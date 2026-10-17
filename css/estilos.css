@@ -26,6 +26,7 @@
 :root {
   --azul: #0c2461;
   --azul-hondo: #081845;
+  --azul-claro: #c9d3f0;
   --amarillo: #ffd400;
   --fondo: #f7f8fc;
   --tinte: #e7ecf9;
@@ -105,23 +106,43 @@ code {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: .25rem 1.5rem;
+  gap: .25rem .75rem;
   padding-block: .4rem;
 }
 .marca {
+  order: 1;
   display: inline-flex;
   align-items: center;
-  gap: .6rem;
+  gap: .5rem;
   min-height: 44px;
-  font-family: var(--titulos);
-  font-weight: 800;
-  font-size: 1.3rem;
-  letter-spacing: -0.02em;
   color: var(--blanco);
   text-decoration: none;
 }
-.marca__icono { width: 2rem; height: 2rem; color: var(--amarillo); flex: none; }
+.marca__icono { width: 1.75rem; height: 1.75rem; color: var(--amarillo); flex: none; }
+.marca__texto { display: grid; line-height: 1.1; }
+.marca__nombre {
+  font-family: var(--titulos);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+.marca__lema { display: none; }
+
+/* Botón principal del encabezado (en móvil queda junto a la marca) */
+.encabezado__accion { order: 2; margin-left: auto; }
+/* .encabezado delante: gana a .boton, que se declara más abajo */
+.encabezado .boton--amarillo {
+  min-height: 44px;
+  padding: .3rem .8rem;
+  font-size: .9rem;
+  background: var(--amarillo);
+  color: var(--azul);
+  border-color: var(--amarillo);
+  box-shadow: var(--d) var(--d) 0 var(--azul-claro);
+}
+
+nav { order: 3; flex-basis: 100%; }
+.encabezado__cable { display: none; }
 
 .menu {
   display: flex;
@@ -141,6 +162,9 @@ code {
   border-radius: 6px;
 }
 .menu a:hover { background: var(--amarillo); color: var(--azul); }
+/* Sección que se está viendo (la marca js/navegacion.js) */
+.menu a[aria-current="location"] { box-shadow: inset 0 -3px 0 var(--amarillo); }
+.menu a[aria-current="location"]:hover { box-shadow: none; }
 
 /* ---------- Presentación ---------- */
 .presentacion {
@@ -472,7 +496,7 @@ code {
 .registro p { margin: 0; color: var(--texto-suave); }
 
 /* ---------- Pie ---------- */
-.pie { background: var(--azul); color: #c9d3f0; padding-block: 2rem; }
+.pie { background: var(--azul); color: var(--azul-claro); padding-block: 2rem; }
 .pie__interior { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
 .pie p, .pie address { margin: 0; font-style: normal; overflow-wrap: anywhere; }
 .pie a { color: var(--amarillo); }
@@ -481,7 +505,58 @@ code {
 .pie__nota { font-size: .9rem; }
 
 /* ---------- Escritorio ---------- */
+/* Pantallas muy angostas (≈320 px): para que marca y botón quepan en una fila */
+@media (max-width: 359px) {
+  .marca__icono { width: 1.6rem; height: 1.6rem; }
+  .marca__nombre { font-size: .92rem; }
+  .encabezado .boton--amarillo { padding-inline: .65rem; }
+}
+
+@media (min-width: 480px) {
+  .marca { gap: .6rem; }
+  .marca__icono { width: 2rem; height: 2rem; }
+  .marca__nombre { font-size: 1.15rem; }
+  .encabezado .boton--amarillo { padding-inline: .9rem; font-size: .95rem; }
+}
+
 @media (min-width: 760px) {
+  /* Encabezado fijo: las secciones dejan espacio para que no queden tapadas */
+  html { scroll-padding-top: 4rem; }
+  .encabezado { position: sticky; top: 0; z-index: 5; }
+  .encabezado__interior { flex-wrap: nowrap; gap: 0 .5rem; padding-block: .55rem; }
+  .marca__nombre { font-size: 1.3rem; }
+  .marca__lema {
+    display: block;
+    margin-top: .15rem;
+    font-size: .74rem;
+    font-weight: 500;
+    letter-spacing: .01em;
+    color: var(--azul-claro);
+  }
+  /* Cable: sale de la marca y termina en un conector junto al menú */
+  .encabezado__cable {
+    order: 2;
+    display: block;
+    position: relative;
+    flex: 1;
+    height: 3px;
+    margin: 0 1.25rem 0 1rem;
+    background: var(--amarillo);
+    border-radius: 2px;
+  }
+  .encabezado__cable::after {
+    content: "";
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    width: 12px;
+    height: 16px;
+    transform: translateY(-50%);
+    background: var(--amarillo);
+    border-radius: 3px;
+  }
+  nav { flex-basis: auto; }
+  .encabezado .encabezado__accion { order: 4; margin-left: .75rem; padding-inline: 1.2rem; font-size: 1rem; }
   .menu { gap: 0 .25rem; margin: 0; }
   .menu a { padding: .7rem .8rem; font-size: 1rem; }
   .presentacion__interior { grid-template-columns: 1.25fr 1fr; gap: 3rem; }
