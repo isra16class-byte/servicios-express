@@ -118,7 +118,7 @@ code {
   color: var(--blanco);
   text-decoration: none;
 }
-.marca__icono { width: 1.75rem; height: 1.75rem; color: var(--amarillo); flex: none; }
+.marca__icono { width: 2.1rem; height: 2.1rem; color: var(--amarillo); flex: none; }
 .marca__texto { display: grid; line-height: 1.1; }
 .marca__nombre {
   font-family: var(--titulos);
@@ -343,6 +343,29 @@ nav { order: 3; flex-basis: 100%; }
 .etiqueta__codigo { font-variant-numeric: tabular-nums; }
 
 .etiqueta__cuerpo { padding: 1.1rem 1.1rem .5rem; flex: 1; }
+/* Ícono del servicio junto al título */
+.etiqueta__titulo { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; }
+.etiqueta__titulo h3 { margin: 0; min-width: 0; }
+.etiqueta__icono {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  background: var(--amarillo);
+  border: 2px solid var(--azul);
+  border-radius: 50%;
+  color: var(--azul);
+}
+.etiqueta__icono svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .etiqueta__cuerpo p { margin-bottom: .8em; }
 .etiqueta__cuerpo ul { margin: 0; padding-left: 1.1rem; color: var(--texto-suave); }
 .etiqueta__cuerpo li { margin-bottom: .2rem; }
@@ -507,14 +530,14 @@ nav { order: 3; flex-basis: 100%; }
 /* ---------- Escritorio ---------- */
 /* Pantallas muy angostas (≈320 px): para que marca y botón quepan en una fila */
 @media (max-width: 359px) {
-  .marca__icono { width: 1.6rem; height: 1.6rem; }
+  .marca__icono { width: 1.9rem; height: 1.9rem; }
   .marca__nombre { font-size: .92rem; }
   .encabezado .boton--amarillo { padding-inline: .65rem; }
 }
 
 @media (min-width: 480px) {
   .marca { gap: .6rem; }
-  .marca__icono { width: 2rem; height: 2rem; }
+  .marca__icono { width: 2.5rem; height: 2.5rem; }
   .marca__nombre { font-size: 1.15rem; }
   .encabezado .boton--amarillo { padding-inline: .9rem; font-size: .95rem; }
 }

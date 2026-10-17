@@ -14,6 +14,7 @@ const TarjetaServicio = {
     nombre: { type: String, required: true },
     descripcion: { type: String, required: true },
     modalidad: { type: String, required: true }, // "presencial" | "remoto"
+    icono: { type: String, default: "equipo" },  // "equipo" | "red" | "remoto"
     incluye: { type: Array, default: () => [] },
     lugar: { type: String, default: "" },
     tiempo: { type: String, default: "" },
@@ -32,7 +33,20 @@ const TarjetaServicio = {
         <span>{{ etiqueta }}</span>
       </div>
       <div class="etiqueta__cuerpo">
-        <h3>{{ nombre }}</h3>
+        <div class="etiqueta__titulo">
+          <span class="etiqueta__icono" aria-hidden="true">
+            <svg v-if="icono === 'red'" viewBox="0 0 24 24">
+              <rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 17h.01M11 17h.01M9.2 10.2a4 4 0 0 1 5.6 0M6.4 7.4a8 8 0 0 1 11.2 0"/>
+            </svg>
+            <svg v-else-if="icono === 'remoto'" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M10 7l5 2.4-2.2.8-.9 2.2z"/>
+            </svg>
+            <svg v-else viewBox="0 0 24 24">
+              <rect x="2.5" y="4" width="14" height="10" rx="1.5"/><path d="M1 18h15.5M14.5 22l5-5"/><circle cx="19.5" cy="13.5" r="2.8"/>
+            </svg>
+          </span>
+          <h3>{{ nombre }}</h3>
+        </div>
         <p>{{ descripcion }}</p>
         <ul>
           <li v-for="punto in incluye" :key="punto">{{ punto }}</li>
@@ -69,6 +83,7 @@ const TarjetaServicio = {
 const SERVICIOS = [
   {
     id: "mantenimiento",
+    icono: "equipo",
     codigo: "SX-EQ",
     nombre: "Mantenimiento de computadoras",
     descripcion: "Dejamos tu equipo limpio, rápido y listo para trabajar.",
@@ -79,6 +94,7 @@ const SERVICIOS = [
   },
   {
     id: "redes",
+    icono: "red",
     codigo: "SX-RD",
     nombre: "Instalación de redes domésticas",
     descripcion: "Llevamos buen Wi-Fi a todos los cuartos de tu casa.",
@@ -89,6 +105,7 @@ const SERVICIOS = [
   },
   {
     id: "soporte",
+    icono: "remoto",
     codigo: "SX-RM",
     nombre: "Soporte tecnológico remoto",
     descripcion: "Resolvemos tu problema por videollamada y control remoto.",
