@@ -533,27 +533,45 @@ nav { order: 3; flex-basis: 100%; }
     letter-spacing: .01em;
     color: var(--azul-claro);
   }
-  /* Cable: sale de la marca y termina en un conector junto al menú */
+  /* Cable: sale de la marca, termina en un conector RJ45 y
+     junto a él hay luces de puerto, como en un router */
   .encabezado__cable {
     order: 2;
-    display: block;
-    position: relative;
+    display: flex;
+    align-items: center;
     flex: 1;
+    min-width: 0;
+    margin: 0 1rem 0 1rem;
+  }
+  .cable__hilo {
+    flex: 1;
+    min-width: 0;
     height: 3px;
-    margin: 0 1.25rem 0 1rem;
     background: var(--amarillo);
     border-radius: 2px;
   }
-  .encabezado__cable::after {
-    content: "";
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    width: 12px;
-    height: 16px;
-    transform: translateY(-50%);
+  .cable__conector { flex: none; width: 28px; height: 20px; }
+  .cable__leds { flex: none; display: flex; gap: 5px; margin-left: 6px; }
+  .cable__leds i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
     background: var(--amarillo);
-    border-radius: 3px;
+    box-shadow: 0 0 6px var(--amarillo);
+    animation: parpadeo 1.6s ease-in-out infinite;
+  }
+  .cable__leds i:nth-child(2) {
+    background: var(--blanco);
+    box-shadow: 0 0 6px var(--blanco);
+    animation-duration: 2.3s;
+    animation-delay: -.8s;
+  }
+  /* Tercera luz apagada */
+  .cable__leds i:nth-child(3) {
+    background: var(--azul-claro);
+    box-shadow: none;
+    opacity: .3;
+    animation: none;
   }
   nav { flex-basis: auto; }
   .encabezado .encabezado__accion { order: 4; margin-left: .75rem; padding-inline: 1.2rem; font-size: 1rem; }
@@ -578,7 +596,19 @@ nav { order: 3; flex-basis: 100%; }
   .pie__interior { grid-template-columns: 1fr auto auto; align-items: start; gap: 2rem; }
 }
 
+/* Entre 760 y 899 px no hay espacio para el hilo y las luces: se quitan las luces */
+@media (min-width: 760px) and (max-width: 899px) {
+  .cable__leds { display: none; }
+  .encabezado__cable { margin-inline: .5rem; }
+}
+
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .25; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .cable__leds i { animation: none; }
   .boton { transition: none; }
 }
