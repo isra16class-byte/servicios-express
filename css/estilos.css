@@ -98,8 +98,9 @@ code {
 .saltar:focus { left: 0; }
 
 /* ---------- Encabezado ---------- */
-/* Mismo amarillo que la presentación y sin línea: se lee como un solo bloque */
-.encabezado { background: var(--amarillo); }
+/* Banda azul tinta arriba: se repite en los pasos y en el pie */
+.encabezado { background: var(--azul); }
+.encabezado :focus-visible { outline-color: var(--amarillo); }
 .encabezado__interior {
   display: flex;
   flex-wrap: wrap;
@@ -117,10 +118,10 @@ code {
   font-weight: 800;
   font-size: 1.3rem;
   letter-spacing: -0.02em;
-  color: var(--azul);
+  color: var(--blanco);
   text-decoration: none;
 }
-.marca__icono { width: 2rem; height: 2rem; color: var(--azul); flex: none; }
+.marca__icono { width: 2rem; height: 2rem; color: var(--amarillo); flex: none; }
 
 .menu {
   display: flex;
@@ -135,11 +136,11 @@ code {
   padding: .7rem .4rem;
   font-size: .95rem;
   font-weight: 600;
-  color: var(--azul);
+  color: var(--blanco);
   text-decoration: none;
   border-radius: 6px;
 }
-.menu a:hover { background: var(--azul); color: var(--amarillo); }
+.menu a:hover { background: var(--amarillo); color: var(--azul); }
 
 /* ---------- Presentación ---------- */
 .presentacion {
