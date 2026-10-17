@@ -1,6 +1,6 @@
 # Servicios Express – Miniaplicación web responsiva
 
-**Autor/a:** Apellido Nombre *(reemplazar antes de entregar)*
+**Autor:** Julio Israel Viteri Romero
 
 ## Objetivo
 Construir una página de una sola página que permita a los clientes de Servicios Express conocer los tres servicios, filtrarlos, enviar un mensaje de contacto y verla bien en computadora y teléfono. Aplica HTML semántico, CSS responsivo, JavaScript y un componente de framework front-end.
