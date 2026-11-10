@@ -1,6 +1,19 @@
-Coloque aquí las capturas de pantalla antes de comprimir el proyecto:
-  01_formulario.png
-  02_solicitud_registrada.png
-  03_panel_administrativo.png
-  04_cambio_de_estado.png
-  05_proteccion_de_acceso.png
+Evidencias del Caso práctico 2 – Servicios Express
+
+Flujo principal
+  01_formulario.png            Formulario de solicitud de soporte (página principal)
+  02_solicitud_registrada.png  Mensaje de confirmación tras enviar la solicitud
+  03_panel_administrativo.png  Panel con el listado de solicitudes (sesión iniciada)
+  04_cambio_de_estado.png      Cambio de estado de una solicitud en el panel
+  05_proteccion_de_acceso.png  Pantalla de login al entrar a /admin sin sesión
+
+Peticiones HTTP (herramientas del navegador)
+  06_post_devtools.png         POST /api/solicitudes -> 201 Created
+  07_get_devtools.png          GET /api/solicitudes -> 200 OK
+
+Escenarios de error
+  08_error_formulario.png      Formulario incompleto y correo con formato inválido
+  09_error_sin_sesion.png      Acceso a la API sin sesión (401)
+  10_error_no_existe.png       Consulta de un registro inexistente (404)
+
+Estas capturas se enlazan en la sección 4 del README.md.

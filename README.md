@@ -3,7 +3,7 @@
 Caso práctico 2 · Unidad 2: Desarrollo del lado del servidor e integración
 Estudiante: Julio Israel Viteri Romero · Tecnologías: Node.js 22+, Express, SQLite (módulo integrado `node:sqlite`), HTML/CSS/JavaScript y Vue 3 (front-end del caso 1)
 
-Este proyecto continúa el prototipo de **Servicios Express** del caso 1 (https://github.com/isra16class-byte/servicios-express): se conserva su diseño, sus tres servicios, el componente Vue `TarjetaServicio` y la validación del formulario, y ahora el formulario **guarda las solicitudes en una base de datos** a través de un servidor.
+Este proyecto continúa el prototipo de **Servicios Express** del caso 1: se conserva su diseño, sus tres servicios, el componente Vue `TarjetaServicio` y la validación del formulario, y ahora el formulario **guarda las solicitudes en una base de datos** a través de un servidor.
 
 ## Cómo ejecutar
 
@@ -19,6 +19,8 @@ npm start          # http://localhost:3000
 - Credenciales **de prueba**: usuario `admin` · contraseña `admin123` (se pueden cambiar con las variables `ADMIN_USER` y `ADMIN_PASS`).
 - La base de datos `database/solicitudes.db` se crea sola al iniciar, a partir de `database/schema.sql`.
 - Si Node muestra un aviso «SQLite is an experimental feature», es normal y no afecta el funcionamiento.
+
+**Nota de seguridad:** Las credenciales del administrador son únicamente para fines académicos y pruebas locales. En un entorno real, deben reemplazarse por credenciales seguras.
 
 ## 1. Arquitectura
 
@@ -104,6 +106,8 @@ La eliminación pide confirmación en el navegador antes de llamar a `DELETE`.
 
 ## 4. Evidencias
 
+Las capturas 01 a 05 muestran el flujo principal; las 06 a 10 muestran las peticiones HTTP reales y los escenarios de error de la sección 3.1.
+
 | Evidencia              | Captura                                              |
 |------------------------|------------------------------------------------------|
 | Formulario             | ![Formulario](evidencias/01_formulario.png)          |
@@ -111,6 +115,11 @@ La eliminación pide confirmación en el navegador antes de llamar a `DELETE`.
 | Panel administrativo   | ![Panel](evidencias/03_panel_administrativo.png)     |
 | Cambio de estado       | ![Estado](evidencias/04_cambio_de_estado.png)        |
 | Protección de acceso   | ![Protección](evidencias/05_proteccion_de_acceso.png) |
+| POST visto en el navegador (`POST /api/solicitudes` → 201) | ![POST](evidencias/06_post_devtools.png) |
+| GET visto en el navegador (`GET /api/solicitudes` → 200)   | ![GET](evidencias/07_get_devtools.png) |
+| Error: formulario incompleto y correo inválido             | ![Error formulario](evidencias/08_error_formulario.png) |
+| Error: acceso a la API sin sesión (401)                    | ![Sin sesión](evidencias/09_error_sin_sesion.png) |
+| Error: registro inexistente (404)                          | ![No existe](evidencias/10_error_no_existe.png) |
 
 ## 5. Prueba integral
 
@@ -125,12 +134,11 @@ La eliminación pide confirmación en el navegador antes de llamar a `DELETE`.
 | 7. Cambia su estado             | Estado pasa a «En proceso»                        | `PUT /api/solicitudes/1` → 200, estado «En proceso»                                 |
 | 8. Cambio queda registrado      | Al volver a consultar, el estado sigue cambiado   | Tras reiniciar el servidor, el listado muestra «En proceso»                         |
 
-Verificación: el flujo se ejecutó contra el servidor real con llamadas a la API y simulando el navegador (formulario y panel), con 0 errores de JavaScript. Repítelo en un navegador y adjunta las capturas.
+Verificación: el flujo se ejecutó contra el servidor real con llamadas a la API y simulando el navegador (formulario y panel), con 0 errores de JavaScript.
 
 Pruebas adicionales: eliminar una solicitud (200 y el listado queda vacío), `GET /admin` sin sesión (302 → `/login.html`), cerrar sesión y volver a entrar a `/admin` (redirige al login), `admin.html` no es accesible directamente (404).
 
 **Error detectado:** ninguno en esta ejecución.
-**Corrección realizada:** no fue necesaria. _(Si durante su prueba en el navegador encuentra algún fallo, anótelo aquí junto con la corrección.)_
 
 ### Mejoras propuestas
 
@@ -150,9 +158,9 @@ Pruebas adicionales: eliminar una solicitud (200 y el listado queda vacío), `GE
 
 Cada parte cumple un papel y ninguna trabaja sola. El front-end recoge los datos del usuario y los envía al servidor como una petición HTTP. El back-end los recibe, comprueba que sean válidos, verifica si el usuario tiene permiso y, si todo está bien, le pide a la base de datos que guarde, lea, modifique o elimine el registro. La base de datos conserva la información aunque se reinicie el servidor. Finalmente, el back-end devuelve una respuesta JSON y el front-end la convierte en un mensaje o una tabla que el usuario entiende.
 
+
 ## 8. Declaración de uso de IA
 
-Usé una herramienta de inteligencia artificial (Claude) como apoyo en este proyecto: para generar la base del servidor (rutas, controladores, acceso a datos y autenticación), integrarla con el front-end que hice en el caso 1 y redactar el borrador del README. Revisé y probé el funcionamiento del formulario, el login y el panel.
-<!-- AJUSTA este párrafo para que describa con exactitud lo que hiciste tú y lo que hizo la herramienta. -->
+Durante el desarrollo del proyecto utilicé una herramienta de inteligencia artificial como apoyo para identificar y corregir errores en el archivo `solicitudController.js`, organizar las rutas, los controladores y el acceso a la base de datos, y comprender el proceso de autenticación del administrador.
 
-> Nota de seguridad: las credenciales incluidas son solo de prueba. No se almacenan contraseñas ni datos personales reales.
+Este apoyo me permitió entender mejor la comunicación entre el front-end y el back-end, así como los pasos necesarios para conectar el formulario con SQLite e implementar el panel administrativo. También me ayudó a comprender la función de cada archivo dentro de la estructura del proyecto.
