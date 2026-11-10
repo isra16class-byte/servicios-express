@@ -1,0 +1,6 @@
+Coloque aquí las capturas de pantalla antes de comprimir el proyecto:
+  01_formulario.png
+  02_solicitud_registrada.png
+  03_panel_administrativo.png
+  04_cambio_de_estado.png
+  05_proteccion_de_acceso.png

@@ -4,6 +4,8 @@
    1) que los campos obligatorios tengan información,
    2) que el correo tenga un formato básico correcto,
    y muestra un mensaje de error o de confirmación.
+   Caso 2: si todo es correcto, envía la solicitud al servidor
+   (POST /api/solicitudes) y muestra la respuesta que recibe.
    ========================================================== */
 
 (function () {
@@ -84,8 +86,8 @@
   });
   actualizarOrden();
 
-  formulario.addEventListener("submit", (evento) => {
-    evento.preventDefault(); // prototipo: no se envía a ningún servidor
+  formulario.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
 
     const resultados = Object.keys(reglas).map(validarCampo);
     const todoCorrecto = resultados.every(Boolean);
@@ -98,9 +100,32 @@
       return;
     }
 
+    // Se arma el cuerpo de la petición con los nombres que espera la API.
+    const catalogo = typeof SERVICIOS !== "undefined" ? SERVICIOS : [];
+    const elegido = catalogo.find((s) => s.id === formulario.elements.servicio.value);
     const nombre = formulario.elements.nombre.value.trim();
+    const boton = formulario.querySelector('button[type="submit"]');
+
+    boton.disabled = true;
+    resultado.className = "resultado";
+    resultado.textContent = "Enviando…";
+
+    const respuesta = await pedir("/api/solicitudes", "POST", {
+      nombre,
+      correo: formulario.elements.correo.value.trim(),
+      servicio: elegido ? elegido.nombre : "",
+      descripcion: formulario.elements.mensaje.value.trim()
+    });
+    boton.disabled = false;
+
+    if (!respuesta.ok) {
+      resultado.className = "resultado resultado--error";
+      resultado.textContent = respuesta.mensaje;
+      return;
+    }
+
     resultado.className = "resultado resultado--ok";
-    resultado.textContent = `Gracias, ${nombre}. Recibimos tu mensaje y te escribiremos pronto.`;
+    resultado.textContent = `Gracias, ${nombre}. Tu solicitud n.º ${respuesta.data.id} quedó registrada y te escribiremos pronto.`;
     formulario.reset();
     Object.keys(reglas).forEach((n) => {
       document.getElementById("error-" + n).textContent = "";

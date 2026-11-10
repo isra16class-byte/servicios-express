@@ -1,0 +1,29 @@
+/* Estilos del caso 2 (login y panel). Reutilizan las variables de styles.css. */
+.contenedor--estrecho { width: min(100% - 2rem, 32rem); margin-inline: auto; }
+
+.tabla-envoltorio {
+  overflow-x: auto; background: var(--blanco);
+  border: 2px solid var(--azul); border-radius: var(--radio);
+}
+.tabla { width: 100%; min-width: 780px; border-collapse: collapse; font-size: .95rem; }
+.tabla th, .tabla td {
+  text-align: left; vertical-align: top; padding: .75rem .9rem;
+  border-bottom: 1px solid var(--azul-claro);
+}
+.tabla tbody tr:last-child td { border-bottom: 0; }
+.tabla th { background: var(--tinte); font-family: var(--titulos); font-weight: 700; }
+.tabla small { display: block; color: var(--texto-suave); }
+.tabla__desc { max-width: 22rem; overflow-wrap: anywhere; }
+.tabla-vacia { margin: 0; padding: 2rem 1rem; text-align: center; color: var(--texto-suave); }
+
+.sel-estado {
+  font: inherit; font-weight: 700; color: var(--azul); min-height: 44px;
+  padding: .4rem .6rem; border: 2px solid var(--azul); border-radius: 6px; background: var(--blanco);
+}
+.sel-estado:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 0; }
+.sel-estado[data-estado="Pendiente"]  { background: #fff4c2; }
+.sel-estado[data-estado="En proceso"] { background: var(--azul-claro); }
+.sel-estado[data-estado="Resuelto"]   { background: #d6f2e2; }
+
+.boton--peligro { color: var(--error); border-color: var(--error); box-shadow: none; padding-block: .45rem; }
+.boton--peligro:hover { background: var(--error); color: var(--blanco); }

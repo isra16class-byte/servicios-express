@@ -9,7 +9,7 @@
   const enlaces = document.querySelectorAll('.menu a[href^="#"]');
   // Se incluye #contacto aunque no tenga enlace en el menú:
   // así, al llegar a él se apaga el resaltado de "Servicios".
-  const secciones = ["servicios", "contacto", "externo"]
+  const secciones = ["servicios", "contacto"]
     .map((id) => document.getElementById(id))
     .filter(Boolean);
   if (!enlaces.length || !secciones.length) return;

@@ -1,0 +1,83 @@
+# Servicios Express – Miniaplicación web responsiva
+
+**Autor:** Julio Israel Viteri Romero
+
+## Objetivo
+Construir una página de una sola página que permita a los clientes de Servicios Express conocer los tres servicios, filtrarlos, enviar un mensaje de contacto y verla bien en computadora y teléfono. Aplica HTML semántico, CSS responsivo, JavaScript y un componente de framework front-end.
+
+## Planificación (Actividad 1)
+- **Propósito:** presentar los servicios y conseguir que la persona pida ayuda.
+- **Usuario principal:** persona o familia sin conocimientos técnicos que necesita arreglar su equipo o su internet.
+- **Secciones:** (1) Presentación y servicios, (2) Formulario de contacto, (3) Información externa de demostración.
+- **Información visible:** nombre, descripción, tres servicios con su modalidad, formulario, datos de contacto.
+- **Acción principal:** pulsar «Pedir este servicio» y enviar el formulario.
+
+```
++----------------------------------+
+| Servicios Express   Servicios ...|  header + nav
++----------------------------------+
+| Título + descripción | Cómo      |  presentación
+| [Pedir ayuda]        | trabajamos|
++----------------------------------+
+| [Todos][Presenciales][Remotos]   |  filtro
+| [Tarjeta] [Tarjeta] [Tarjeta]    |  servicios
++----------------------------------+
+| Texto            | Formulario    |  contacto
++----------------------------------+
+| Información externa (3 tarjetas) |
++----------------------------------+
+| Pie: contacto                    |
++----------------------------------+
+```
+En móvil todo se apila en una sola columna.
+
+## Herramientas utilizadas
+HTML5, CSS3 (Grid, Flexbox, `clamp()`, media queries), tipografías Bricolage Grotesque y Public Sans (licencia OFL, incluidas en `fonts/`), logo, favicon, íconos e ilustración en SVG propio, animaciones solo con CSS, JavaScript, **Vue 3** (versión 3.4.21, incluida en `js/vendor/` para que funcione sin internet) y `fetch` con JSONPlaceholder.
+
+## Cómo abrirlo
+1. Descomprime el .zip.
+2. Haz doble clic en `index.html` (no requiere instalación ni servidor).
+
+**Archivos:** `index.html`, `favicon.svg`, `css/styles.css`, `js/app.js` (Vue: componente, filtro y selección), `js/form.js` (validación), `js/external.js` (fetch y respaldo), `js/navigation.js` (resaltado del menú), `js/vendor/vue.global.prod.js`, `fonts/` y `screenshots/`.
+
+## Capturas
+Las capturas están en `screenshots/` y se tomaron **con y sin conexión a internet**: con conexión, la sección «Información externa de demostración» muestra los usuarios que devuelve la API; sin conexión, muestra el aviso y los datos de respaldo.
+
+| Escritorio (página completa, sin conexión) | Móvil (página completa, sin conexión) |
+|---|---|
+| ![Escritorio](screenshots/desktop-full-offline.png) | ![Móvil](screenshots/mobile-full-offline.png) |
+
+Más capturas: `screenshots/desktop/` (vista de escritorio) y `screenshots/mobile/` (vista móvil).
+
+## Las dos interacciones
+Son las dos que pide el caso: el filtro y la validación.
+
+- **A. Filtro de servicios** (`js/app.js`): tres botones (Todos, Presenciales, Remotos). Mantenimiento y redes se clasificaron como presenciales; soporte, como remoto. El filtro es un estado de Vue y la lista se recalcula sola; un mensaje anuncia cuántos servicios se muestran.
+- **B. Validación del formulario** (`js/form.js`): al enviar se comprueba que nombre, correo, servicio y mensaje tengan contenido y que el correo cumpla un formato básico (`nombre@dominio.com`). Cada error aparece bajo su campo; si todo es correcto se muestra una confirmación. No se envía a ningún servidor.
+
+## Componente creado
+`TarjetaServicio` (en `js/app.js`), con aspecto de etiqueta de servicio: recibe `nombre`, `descripcion` y `modalidad` (más `codigo`, una lista `incluye` y el estado `seleccionado`) y se reutiliza para los tres servicios. Al pulsar su botón, preselecciona ese servicio en el formulario. También recibe `icono` (equipo, red o remoto) para dibujar su ícono SVG.
+
+**Extras (no cuentan como interacciones del caso):** la «orden de servicio» que se llena en vivo junto al formulario (solo escritorio), el resaltado de la sección activa en el menú (`js/navigation.js`) y las luces y el destello del cable del encabezado (CSS).
+
+## Fuente de datos externa
+`https://jsonplaceholder.typicode.com/users?_limit=3` (API pública de pruebas, formato JSON). Se muestran 3 registros en «Información externa de demostración».
+**Limitación y solución:** si el servicio no responde (o tarda más de 6 s), se muestran 3 registros de respaldo y un aviso. Los datos de respaldo están dentro de `js/external.js` y no en un `.json` aparte, porque el navegador bloquea `fetch` de archivos locales al abrir la página con doble clic.
+
+## Pruebas realizadas
+Carga sin errores en consola; filtro correcto (Todos 3, Presenciales 2, Remotos 1); validación de campos vacíos y de correo mal escrito; confirmación al enviar; sin desplazamiento horizontal a 1280, 390 y 320 px; botones de al menos 44 px de alto; el error de la API se gestiona con datos de respaldo.
+
+## Reflexión final
+Al terminar entendí que una página se reparte en cuatro partes que trabajan juntas. La **estructura** es el HTML semántico (header, nav, main, section, article, footer y el formulario con sus label): el esqueleto. La **presentación** es el CSS: colores, tipografía, Grid, Flexbox y las media queries que adaptan todo al móvil. El **comportamiento** es lo que pasa cuando la persona actúa: filtrar, validar el formulario y traer datos con fetch. La **gestión de estado** es lo que Vue recuerda, el filtro activo y el servicio elegido, para que la pantalla se actualice sola.
+
+## Declaración de uso de IA
+Usé una herramienta de inteligencia artificial como apoyo en este proyecto. Primero escribí
+yo el código a mano (la estructura HTML, los estilos base, el filtro, la validación del
+formulario y la consulta con fetch). Después lo usé para reestructurarlo y mejorarlo poco
+a poco, y para las decoraciones visuales, porque tuve problemas con el posicionamiento en
+CSS al hacerlas solo: las etiquetas de servicio con muescas, el cable que une los pasos,
+el encabezado fijo con su cable animado, el logo, el favicon y los íconos.
+También me ayudó con funciones extra que no son las dos interacciones del caso: la orden
+de servicio que se llena en vivo y el resaltado de la sección activa en el menú.
+Además la usé para probar la página en distintos tamaños de pantalla (320, 390 y 1280 px) y
+como borrador del README. Revisé y probé cada cambio.
